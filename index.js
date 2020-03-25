@@ -5,6 +5,9 @@ const fetchData = async (serachTerm) => {
       s: serachTerm
     }
   });
+  if(response.data.Error) {
+    return [];
+  }
   return response.data.Search;
 };
 
