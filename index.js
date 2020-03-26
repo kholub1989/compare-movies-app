@@ -37,7 +37,7 @@ const onInput = async (event) => {
 
     option.classList.add('dropdown-item');
     option.innerHTML = `
-      <img src="${imgSrcgit}" />
+      <img src="${imgSrc}" />
       ${movie.Title}
     `;
 
@@ -45,3 +45,9 @@ const onInput = async (event) => {
   }
 };
 input.addEventListener('input', debounce(onInput, 500));
+
+document.addEventListener('click', event => {
+  if(!root.contains(event.target)){
+    dropdown.classList.remove('is-active');
+  }
+}); 
