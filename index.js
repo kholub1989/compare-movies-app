@@ -1,20 +1,8 @@
-const fetchData = async (serachTerm) => {
-  const response = await axios.get('http://www.omdbapi.com/', {
-    params: {
-      apikey: '1b89a364',
-      s: serachTerm
-    }
-  });
-  if(response.data.Error) {
-    return [];
-  }
-  return response.data.Search;
-};
-
 createAutoComplete({
   root: document.querySelector('.autocomplete'),
   renderOption(movie) {
     const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
+    
     return `
       <img src="${imgSrc}" />
       ${movie.Title}
@@ -26,6 +14,20 @@ createAutoComplete({
   },
   inputValue(movie) {
     return movie.Title;
+  },
+  async fetchData(serachTerm) {
+    const response = await axios.get('http://www.omdbapi.com/', {
+      params: {
+        apikey: '1b89a364',
+        s: serachTerm
+      }
+    });
+
+    if (response.data.Error) {
+      return [];
+    }
+
+    return response.data.Search;
   }
 }); 
 
